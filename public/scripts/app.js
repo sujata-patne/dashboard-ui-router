@@ -1,0 +1,121 @@
+'use strict';
+
+/**
+ * @ngdoc overview
+ * @name dashboardApp
+ * @description
+ * # dashboardApp
+ *
+ * Main module of the application.
+ */
+angular
+  .module('dashboardApp', [
+    'ngAnimate',
+    'ngAria',
+    'ngCookies',
+    'ngMessages',
+    'ngResource',
+    'ngSanitize',
+    'ngTouch',
+    'ui.bootstrap',
+    'ui.router',
+    'chart.js'
+  ])
+
+.config(function($stateProvider){
+    $stateProvider
+      .state("dashboard",{
+        templateUrl:"views/dashboard.html",
+        controller:"DashboardCtrl",
+        url:"/dashboard"
+      })
+      .state("organizations",{
+        templateUrl:"views/organizations.html",
+        controller:"OrganizationsCtrl",
+        url:"/organizations"
+      })
+      .state('organizations.list',{
+        templateUrl:'views/organizations.list.html',
+        controller:'OrganizationslistCtrl',
+        url:'/list'
+      })
+      .state('organizations.view',{
+        templateUrl:'views/organizations.view.html',
+        controller:'OrganizationsviewCtrl',
+        url:'/view/:id'
+      })
+      .state('organizations.add',{
+        templateUrl:'views/organizations.edit.html',
+        controller:'OrganizationseditCtrl',
+        url:'/add/'
+      })
+      .state('organizations.edit',{
+        templateUrl:'views/organizations.edit.html',
+        controller:'OrganizationseditCtrl',
+        url:'/edit/:id'
+      })
+      .state("organizations.delete",{
+        templateUrl:"views/organizations.delete.html",
+        controller:"OrganizationsdeleteCtrl",
+        url:"/delete/:id"
+      })
+      .state("projects",{
+        templateUrl:"views/projects.html",
+        controller:"ProjectsCtrl",
+        url:"/projects"
+      })
+      .state("projects.list",{
+        templateUrl:"views/projects.list.html",
+        controller:"ProjectslistCtrl",
+        url:"/list"
+      })
+      .state("projects.edit",{
+        templateUrl:"views/projects.edit.html",
+        controller:"ProjectseditCtrl",
+        url:"/edit/:id"
+      })
+        .state('projects.add',{
+          templateUrl:'views/projects.edit.html',
+          controller:'ProjectseditCtrl',
+          url:'/add/'
+        })
+      .state("projects.view",{
+        templateUrl:"views/projects.view.html",
+        controller:"ProjectsviewCtrl",
+        url:"/view/:id"
+      })
+      .state("projects.delete",{
+        templateUrl:"views/projects.delete.html",
+        controller:"ProjectsdeleteCtrl",
+        url:"/delete/:id"
+      })
+      .state("employees",{
+        templateUrl:"views/employees.html",
+        controller:"EmployeesCtrl",
+        url:"/employees"
+      })
+      .state("employees.list",{
+        templateUrl:"views/employees.list.html",
+        controller:"EmployeeslistCtrl",
+        url:"/list"
+      })
+      .state("employees.view",{
+        templateUrl:"views/employees.view.html",
+        controller:"EmployeesviewCtrl",
+        url:"/view/:id"
+      })
+      .state("employees.edit",{
+        templateUrl:"views/employees.edit.html",
+        controller:"EmployeeseditCtrl",
+        url:"/edit/:id"
+      })
+      .state("employees.delete",{
+        templateUrl:"views/employees.delete.html",
+        controller:"EmployeesdeleteCtrl",
+        url:"/delete/:id"
+      })
+  })
+
+.run(function($state){
+    $state.go("dashboard");
+  })
