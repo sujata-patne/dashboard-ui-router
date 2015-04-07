@@ -1,0 +1,122 @@
+<div class="panel-wrapper">
+    <form method="post" name="organizationsForm">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel-title">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <div class="panel-title">First Name</div>
+                            <div class="panel-stage"><input type="text" ng-model="employee.firstName"  required="true"></div>
+                        </div>
+                        <div class="col-xs-2"></div>
+                        <div class="col-xs-5">
+                            <div class="panel-title">Last Name</div>
+                            <div class="panel-stage"><input type="text" ng-model="employee.lastName"  required="true"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-stage">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel-wrapper">
+                                        <div class="panel-title">Total Experience</div>
+                                        <div class="panel-stage">
+                                            <input type="text" ng-model="employee.year_exp" required="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel-wrapper">
+                                        <div class="panel-title">Skills</div>
+                                        <div class="panel-stage">
+                                            <!--<input type="text" data-ng-model="skills" id="skills" class="form-control" placeholder="Space Separated Skills" required>-->
+                                            <tags-input ng-model="employee.skills" id="skills"  display-property="name"></tags-input>
+                                            (Press tab to convert text to tag)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel-wrapper">
+                                        <div class="panel-title">Role</div>
+                                        <div class="panel-stage">
+                                            <select ng-model="employee.role" ng-options="role for role in roles"></select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel-wrapper">
+                                        <div class="panel-title">
+                                            <div class="row">
+                                                <div class="col-xs-8">Organization</div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stage">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <input type="text" ng-model="employee.belong_to._id" required="true" >
+                                                    <input type="text" ng-model="employee.belong_to.name" required="true" class="organizationClass" ng-keyup="autoCompleteOrganization('organizationClass')">
+                                                    <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteOrganization(project._id)">X</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="panel-wrapper">
+                                        <div class="panel-title">
+                                            <div class="row">
+                                                <div class="col-xs-8">Projects</div>
+                                                <div class="col-xs-4">
+                                                    <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="addProject()" title="Add Projects">+</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-stage">
+                                            <div class="row">
+                                                <div class="col-xs-12">
+                                                    <ul><li ng-repeat="projectTitle in employee.works_for track by $index">
+                                                        <input type="hidden" ng-model="projectTitle._id" required="true" >
+                                                        <input type="text" ng-model="projectTitle.name" required="true" ng-readonly="true">
+                                                        <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteProject(projectTitle._id)">X</a>
+                                                    </li>
+                                                        <li ng-repeat="new in newProject.name track by $index">
+                                                            <input type="text" ng-model="newProject.name[$index]" required="true" class="projectClass" ng-keyup="autoCompleteProject('projectClass',$index)">
+                                                            <input type="hidden" ng-model="newProject.id[$index]" required="true">
+                                                            <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteProjectField($index)">X</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="panel-wrapper">
+                                <div class="panel-stage">
+                                    <button type="submit" class="btn btn-primary  text-left" ng-click="save()">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

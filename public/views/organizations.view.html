@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12">
+    <div class="panel-wrapper">
+      <div class="panel-title">
+        <div class="row">
+          <div class="col-xs-8 col-md-8"><h4>{{organization.name}}</h4></div>
+          <div class="col-xs-2 col-md-2">
+            <a ui-sref="auth.organizations.edit({id:organization._id})">
+              <span class="glyphicon glyphicon-edit"></span>
+              Edit
+            </a>
+          </div>
+          <div class="col-xs-2 col-md-2">
+            <a ui-sref="auth.organizations.delete({id:organization._id})">
+              <span class="glyphicon glyphicon-remove"></span>
+              Delete
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="panel-stage">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel-wrapper">
+              <div class="panel-title">Billable Vs Bench</div>
+              <div class="panel-stage">
+                <canvas id="tables" class="chart chart-line" data="chartData.data" labels="chartData.labels" colours="chartData.colours" legend="true"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="panel-wrapper">
+              <div class="panel-title">Owned by</div>
+              <div class="panel-stage">{{getObjectDataStr(organization.owners)}}</div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="panel-wrapper">
+              <div class="panel-title">Projects</div>
+              <div class="panel-stage" >{{getObjectDataStr(organization.projects)}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

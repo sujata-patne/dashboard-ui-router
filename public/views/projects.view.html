@@ -1,0 +1,54 @@
+<div class="panel-wrapper">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel-title">
+        <div class="row">
+          <div class="col-xs-8 col-md-8"><h4><a ui-sref="projects.view({id:project._id})">{{project.name}}</a> :
+            <span class="badge">{{openPosition}}</span> Open Positions</h4></div>
+            <div class="col-xs-2 col-md-2">
+              <a ui-sref="auth.projects.edit({id:project._id})">
+                <span class="glyphicon glyphicon-edit"></span>
+                Edit
+              </a>
+            </div>
+            <div class="col-xs-2 col-md-2">
+              <a ui-sref="auth.organizations.delete({id:project._id})">
+                <span class="glyphicon glyphicon-remove"></span>
+                Delete
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="panel-stage">
+          <div class="row">
+            <div class="col-xs-4"><label>Total Head Count</label></div>
+            <div class="col-xs-8"><span ng-bind="project.total_num_people"></span> </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4"><label>Billable Head Count</label></div>
+            <div class="col-xs-8"><span ng-bind="project.billable_headcount"></span> </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-4"><label>Bench Head Count</label></div>
+            <div class="col-xs-8"><span ng-bind="project.bench_strength"></span> </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-4"><label>Organization</label></div>
+            <div class="col-xs-8 ">
+              <span ng-bind="project.belong_to.name"></span>
+            </div>
+          </div>
+
+        </div>
+        <div class="panel-notes"><small>
+          <em class="text-muted">
+            Posted on
+            <span ng-bind="project.created | date:'mediumDate'"></span>
+            by
+            <span ng-bind="project.updated_by.displayName"></span>
+          </em>
+        </small></div>
+      </div>
+    </div>
+</div>

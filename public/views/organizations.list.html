@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12">
+    <form>
+      <div class="input-group input-group-lg">
+        <input type="text" class="form-control" >
+        <div class="input-group-btn">
+          <button class="btn btn-default"><span class="glyphicon glyphicon-filter"></span>Filter</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row"><div class="col-md-12">&nbsp;</div></div>
+<div class="row">
+  <div ng-repeat="item in organizationsList" class="col-md-4">
+    <div class="panel-wrapper">
+      <div class="panel-title">
+        <a ui-sref="auth.organizations.view({id:item._id})"   >{{item.name}}</a>
+      </div>
+      <div class="panel-stage">
+
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel-wrapper">
+              <div class="panel-title">Billable Vs Bench</div>
+              <div class="panel-stage">
+                <canvas id="tables" class="chart chart-line" data="chartData.data" labels="chartData.labels"  legend="true"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="panel-wrapper">
+              <div class="panel-title">Projects</div>
+              <div class="panel-stage">{{getObjectDataStr(item.projects)}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
