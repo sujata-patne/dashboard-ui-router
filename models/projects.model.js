@@ -47,7 +47,6 @@ var ProjectsSchema = new Schema({
         ref: 'Employee',
         required: false
     }
-
 });
 
 /**

@@ -12,12 +12,6 @@ angular.module('dashboardApp')
     if($stateParams.id !== undefined){
       OrganizationsService.getOrganization($stateParams.id, function (organization) {
         $scope.organization = organization;
-
-        //get last projectID
-        $scope.projectIndex = $scope.organization.projects.length+1;
-        //get last ownerID
-        $scope.ownerIndex = $scope.organization.owners.length+1;
-
       });
     }else{
       $scope.organization = {
@@ -145,7 +139,6 @@ angular.module('dashboardApp')
           $state.transitionTo('auth.organizations.view',{"id" : $scope.organization._id});
         });
       }
-
     }
 
 

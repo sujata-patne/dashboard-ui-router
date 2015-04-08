@@ -27,12 +27,6 @@ angular.module('dashboardApp')
         if($stateParams.id !== undefined){
             EmployeesService.getEmployee($stateParams.id, function (employee) {
                 $scope.employee = employee;
-
-                //get last projectID
-                $scope.projectIndex = $scope.employee.works_for.length+1;
-                //get last ownerID
-                $scope.organizationIndex = $scope.employee.organization.length+1;
-
             });
         }else{
             $scope.employee = {
@@ -123,7 +117,6 @@ angular.module('dashboardApp')
         //Add/Update project
         $scope.save = function(){
             $scope.updateProject();
-console.log($scope.newProject)
             if($stateParams.id === undefined){
                 EmployeesService.addEmployee($scope.employee, function(employee){
                     console.log(employee)

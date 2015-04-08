@@ -152,7 +152,6 @@ exports.update=function(req,res){
         })
     }
     if(req.body.projects != undefined) {
-        console.log(req.body.projects);
         organization.projects = [];
         var projects = req.body.projects;
         projects.forEach(function (projectData, index) {

@@ -110,4 +110,5 @@ EmployeesSchema.post('save', function (doc) {
 })
 
 EmployeesSchema.plugin(relationship, {relationshipPathName:['belong_to','works_for']});
+
 mongoose.model('Employee',EmployeesSchema);

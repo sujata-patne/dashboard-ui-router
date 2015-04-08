@@ -45,7 +45,6 @@ exports.list=function(req,res,next){
 
 //add new project
 exports.create=function(req,res){
-
     if(req.body.belong_to != undefined){
         req.body.belong_to=req.body.belong_to._id;
     }
@@ -56,7 +55,6 @@ exports.create=function(req,res){
             console.log("Unable to save project.");
             console.log(err);
         } else {
-            console.log(projectData);
             res.send(projectData);
         }
     })
@@ -74,7 +72,7 @@ exports.ownersByName=function(req,res,next,name){
                 next(err);
             }
             if(owners){
-                req.owners=owners
+                req.owners=owners;
                 next();
             }else{
                 console.log("Employee not found");
@@ -124,7 +122,6 @@ exports.delete=function(req,res){
 
 exports.update=function(req,res){
     var project = req.project;
-
     if(req.body.name != undefined){
         project.name=req.body.name;
     }

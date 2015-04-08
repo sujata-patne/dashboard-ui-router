@@ -49,9 +49,6 @@ var OrganizationsSchema = new Schema({
     }
 })
 
-// Default options
-//var options = {indexes: null, customCollectionName: 'OrganizationHistory'}
-
 /**
  * Hook a pre save method to hash the password
  */

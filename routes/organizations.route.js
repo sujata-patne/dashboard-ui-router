@@ -2,7 +2,6 @@
  * Created by sujatah on 2/5/2015.
  */
 var organizations = require('../controllers/organizations.controller');
-//var employees = require('../controllers/employees.controller');
 
 module.exports = function(app){
     app.route('/api/organizations')
@@ -23,12 +22,8 @@ module.exports = function(app){
     app.route('/api/organizations/projects/:project')
         .get(organizations.getProjects);
 
-
-
     app.param('organizationID',organizations.organizationById);
     app.param('owner',organizations.ownersByName);
     app.param('project',organizations.projectsByName);
-
-
 
 }

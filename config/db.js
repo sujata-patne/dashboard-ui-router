@@ -17,6 +17,7 @@ module.exports = function(){
     require('../models/employees.model.js');
     require('../models/projects.model.js');
     require('../models/organizations.model.js');
+
     require('../models/organization.history.model.js');
     require('../models/projects.history.model.js');
     require('../models/employees.history.model.js');

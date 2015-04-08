@@ -118,6 +118,7 @@ exports.update=function(req,res) {
     }
     if (req.body.billable != undefined) {
         employee.billable = req.body.billable;
+
     }
 
 
@@ -176,6 +177,4 @@ exports.update=function(req,res) {
     exports.getOrganizations=function(req,res){
         res.send(req.belong_to);
     }
-
-
 
