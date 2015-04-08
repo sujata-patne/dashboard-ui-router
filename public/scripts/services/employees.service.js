@@ -10,8 +10,8 @@
 angular.module('dashboardApp')
   .service('EmployeesService',['$http', function ($http) {
     var service = {};
-    /*service.baseRestUrl = 'http://localhost:8888';*/
-    service.baseRestUrl = 'https://boiling-dusk-5811.herokuapp.com';
+    service.baseRestUrl = 'http://localhost:8888';
+    /*service.baseRestUrl = 'https://boiling-dusk-5811.herokuapp.com';*/
 
     service.getEmployeesList = function (success) {
       $http.get(service.baseRestUrl + '/api/employees/').success(function (items) {

@@ -18,7 +18,6 @@
         <a ui-sref="auth.organizations.view({id:item._id})"   >{{item.name}}</a>
       </div>
       <div class="panel-stage">
-
         <div class="row">
           <div class="col-xs-12">
             <div class="panel-wrapper">
@@ -37,6 +36,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="panel-notes">
+        Owned by <span ng-repeat="owner in item.owners">{{owner.firstName}} {{owner.lastName}}</span>
       </div>
     </div>
   </div>

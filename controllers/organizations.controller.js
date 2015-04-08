@@ -14,7 +14,6 @@ exports.organizationById=function(req,res,next,id){
     Organization.findOne({_id:id})
         .populate('owners')
         .populate('projects')
-        //.populate('projects')
         .exec(function(err,organization) {
             if(err){
                 next(err);
@@ -39,7 +38,7 @@ exports.ownersByName=function(req,res,next,name){
                 next(err);
             }
             if(owners){
-                req.owners=res.jsonp(owners)
+                req.owners=owners
                 next();
             }else{
                 console.log("Employee not found");
@@ -60,7 +59,7 @@ exports.projectsByName=function(req,res,next,name){
                 next(err);
             }
             if(projects){
-                req.projects=res.jsonp(projects);
+                req.projects=projects;
                 next();
             }else{
                 console.log("Project not found");
@@ -153,13 +152,13 @@ exports.update=function(req,res){
         })
     }
     if(req.body.projects != undefined) {
+        console.log(req.body.projects);
         organization.projects = [];
         var projects = req.body.projects;
         projects.forEach(function (projectData, index) {
             items.push({type: "project", value: projectData});
         })
     }
-
 
     items.forEach(function (item) {
         if (item.type === 'owner') {

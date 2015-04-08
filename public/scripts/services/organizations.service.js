@@ -4,8 +4,8 @@
 angular.module('dashboardApp')
   .service('OrganizationsService', ['$http', function ($http) {
     var service = {};
-    /*service.baseRestUrl = 'http://localhost:8888';*/
-    service.baseRestUrl = 'https://boiling-dusk-5811.herokuapp.com';
+    service.baseRestUrl = 'http://localhost:8888';
+    /*service.baseRestUrl = 'https://boiling-dusk-5811.herokuapp.com';*/
 
     service.getOrganizationsList = function(success){
       $http.get(service.baseRestUrl+'/api/organizations/').success(function (items) {

@@ -133,7 +133,7 @@ angular.module('dashboardApp')
     //Add/Update Organization
     $scope.save = function(){
       $scope.updateOwner();
-      //$scope.updateProject();
+      $scope.updateProject();
       if($stateParams.id === undefined){
         OrganizationsService.addOrganization($scope.organization, function(organization){
           $scope.organization = organization;
