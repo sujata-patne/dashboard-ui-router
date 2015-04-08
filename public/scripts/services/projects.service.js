@@ -10,7 +10,8 @@
 angular.module('dashboardApp')
   .service('ProjectsService', ['$http', function ($http) {
     var service = {};
-    service.baseRestUrl = 'http://localhost:8888';
+    /*service.baseRestUrl = 'http://localhost:8888';*/
+    service.baseRestUrl = 'https://boiling-dusk-5811.herokuapp.com';
 
     service.getProjectList = function(success){
       $http.get(service.baseRestUrl+'/api/projects/').success(function (items) {
