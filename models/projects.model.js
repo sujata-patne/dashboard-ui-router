@@ -4,6 +4,7 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
+    relationship = require('mongoose-relationship'),
     ObjectId = Schema.ObjectId;
 
 var ProjectsSchema = new Schema({
@@ -21,7 +22,7 @@ var ProjectsSchema = new Schema({
     belong_to:{
         type:ObjectId,
         ref:'Organization',
-        required: false
+        childPath: 'projects'
     },
     total_num_people:{
         type:Number,
@@ -31,6 +32,12 @@ var ProjectsSchema = new Schema({
         type:Number,
         required:true
     },
+    employees:[
+        {
+            type:ObjectId,
+            ref:'Employee'
+        }
+    ],
     bench_strength:{
         type:Number,
         required:true
@@ -50,6 +57,7 @@ var ProjectsSchema = new Schema({
 ProjectsSchema.post('save', function (doc) {
     var ProjectsHistory = require('../controllers/projects.history.controller.js');
     var project = [];
+    var items = [];
     if(doc._id != undefined){
         project.ref=doc._id;
     }
@@ -60,13 +68,29 @@ ProjectsSchema.post('save', function (doc) {
     if(doc.belong_to != undefined){
         project.belong_to = doc.belong_to;
     }
+    if(doc.employees != undefined) {
+        project.employees = [];
+        var employees = doc.employees;
+        employees.forEach(function (employeeData, index) {
+            items.push({type: "employee", value: employeeData});
+        })
+    }
     if(doc.owners != undefined) {
         project.owners = [];
         var owners = doc.owners;
         owners.forEach(function (ownerData, index) {
-            project.owners.push(ownerData);
+            items.push({type: "owner", value: ownerData});
         })
     }
+    items.forEach(function (item) {
+        if (item.type === 'owner') {
+            project.owners.push(item.value);
+        }
+        if (item.type === 'employee') {
+            project.employees.push(item.value);
+        }
+    });
+
     if(doc.total_num_people != undefined){
         project.total_num_people=doc.total_num_people;
     }
@@ -78,6 +102,8 @@ ProjectsSchema.post('save', function (doc) {
     }
 
     ProjectsHistory.createProjectHistory(project);
-})
+});
+
+ProjectsSchema.plugin(relationship, { relationshipPathName:'belong_to' });
 
 mongoose.model('Project',ProjectsSchema);

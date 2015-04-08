@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
+    relationship = require('mongoose-relationship'),
     ObjectId = Schema.ObjectId;
 
 var EmployeesSchema = new Schema({
@@ -26,13 +27,13 @@ var EmployeesSchema = new Schema({
     belong_to:{
         type: ObjectId,
         ref: 'Organization',
-        required: false
+        childPath:'employees'
     },
     works_for:[
         {
             type: ObjectId,
             ref: 'Project',
-            required: false
+            childPath: 'employees'
         }
     ],
     billability:{
@@ -46,6 +47,10 @@ var EmployeesSchema = new Schema({
     role:{
       type:String,
       required:true
+    },
+    gender:{
+        type:String,
+        required:true
     }
 })
 
@@ -91,7 +96,9 @@ EmployeesSchema.post('save', function (doc) {
     if(doc.role != undefined){
         employee.role=doc.role;
     }
-
+    if(doc.gender != undefined){
+        employee.gender=doc.gender;
+    }
     if(doc.billability != undefined){
         employee.billability=doc.billability;
     }
@@ -102,5 +109,5 @@ EmployeesSchema.post('save', function (doc) {
     EmployeesHistory.createEmployeesHistory(employee);
 })
 
-
+EmployeesSchema.plugin(relationship, {relationshipPathName:['belong_to','works_for']});
 mongoose.model('Employee',EmployeesSchema);

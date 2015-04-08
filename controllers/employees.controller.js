@@ -109,7 +109,9 @@ exports.update=function(req,res) {
     if (req.body.role != undefined) {
         employee.role = req.body.role;
     }
-
+    if (req.body.gender != undefined) {
+        employee.gender = req.body.gender;
+    }
 
     if (req.body.billability != undefined) {
         employee.billability = req.body.billability;

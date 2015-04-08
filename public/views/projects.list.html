@@ -15,7 +15,7 @@
   <div ng-repeat="item in projectList" class="col-md-4">
     <div class="panel-wrapper">
       <div class="panel-title">
-        <a ui-sref="projects.view({id:item._id})"   >{{item.name}}</a>
+          <a ui-sref="auth.projects.view({id:item._id})">{{item.name}} </a>
       </div>
       <div class="panel-stage">
         <div class="row">

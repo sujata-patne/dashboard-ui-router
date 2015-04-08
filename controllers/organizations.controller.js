@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
 exports.organizationById=function(req,res,next,id){
     Organization.findOne({_id:id})
         .populate('owners')
+        .populate('projects')
         //.populate('projects')
         .exec(function(err,organization) {
             if(err){

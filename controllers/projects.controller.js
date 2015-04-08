@@ -74,7 +74,7 @@ exports.ownersByName=function(req,res,next,name){
                 next(err);
             }
             if(owners){
-                req.owners=res.jsonp(owners)
+                req.owners=owners
                 next();
             }else{
                 console.log("Employee not found");

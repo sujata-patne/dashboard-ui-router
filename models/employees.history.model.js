@@ -50,6 +50,10 @@ var EmployeesHistorySchema = new Schema({
       type:String,
       required:true
     },
+    gender:{
+        type:String,
+        required:true
+    },
     updated_by:{
         type: ObjectId,
         ref: 'Employee',

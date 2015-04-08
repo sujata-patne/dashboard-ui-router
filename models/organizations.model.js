@@ -26,6 +26,18 @@ var OrganizationsSchema = new Schema({
         type:Number,
         required:true
     },
+    employees:[
+        {
+            type:ObjectId,
+            ref:'Employee'
+        }
+    ],
+    projects:[
+        {
+            type:ObjectId,
+            ref:'Project'
+        }
+    ],
     bench_strength:{
         type:Number,
         required:true
@@ -62,6 +74,13 @@ OrganizationsSchema.post('save', function (doc) {
             items.push({type: "owner", value: ownerData});
         })
     }
+    if(doc.employees != undefined) {
+        organization.employees = [];
+        var employees = doc.employees;
+        employees.forEach(function (employeeData, index) {
+            items.push({type: "employee", value: employeeData});
+        })
+    }
     if(doc.projects != undefined) {
         organization.projects = [];
         var projects = doc.projects;
@@ -76,6 +95,9 @@ OrganizationsSchema.post('save', function (doc) {
         }
         if (item.type === 'project') {
             organization.projects.push(item.value);
+        }
+        if (item.type === 'employee') {
+            organization.employees.push(item.value);
         }
     });
 

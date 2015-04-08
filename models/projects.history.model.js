@@ -38,6 +38,12 @@ var ProjectsHistorySchema = new Schema({
         type:Number,
         required:true
     },
+    employees:[
+        {
+            type:ObjectId,
+            ref:'Employee'
+        }
+    ],
     updated_by:{
         type: ObjectId,
         ref: 'Employee',

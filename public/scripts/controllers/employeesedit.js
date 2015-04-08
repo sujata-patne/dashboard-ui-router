@@ -9,6 +9,7 @@
  */
 angular.module('dashboardApp')
     .controller('EmployeeseditCtrl',['$scope', '$state', '$stateParams','EmployeesService', function ($scope, $state, $stateParams, EmployeesService) {
+        $scope.genders = ['Male', 'Female'];
         $scope.roles = [
             'Junior Software Developer',
             'Software Developer',
@@ -39,6 +40,7 @@ angular.module('dashboardApp')
                 lastName:'',
                 year_exp:'',
                 role:'',
+                gender:'',
                 skills:'',
                 belong_to: '',
                 works_for: []

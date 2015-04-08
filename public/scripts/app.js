@@ -25,7 +25,13 @@ angular
     'angular-jwt',
     'ngTagsInput'
   ])
-
+    .filter('camelCase', function() {
+        return function(input, scope) {
+            if (input!=null)
+                input = input.toLowerCase();
+            return input.substring(0,1).toUpperCase()+input.substring(1);
+        }
+    })
 .config(function($stateProvider, authProvider, jwtInterceptorProvider,$httpProvider){
     authProvider.init({
         domain: 'synerzip.auth0.com',
