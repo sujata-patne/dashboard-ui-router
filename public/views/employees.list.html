@@ -15,7 +15,9 @@
 <div class="col-xs-12 col-md-4" ng-repeat="employee in employeesList">
     <div class="panel-wrapper">
         <div class="panel-title">
-            <a ui-sref="auth.employees.edit({id:employee._id})">{{employee.firstName | camelCase}} {{employee.lastName | camelCase}} </a><span style="float: right" class="badge">{{employee.role}}</span>
+            <a ui-sref="auth.employees.view({id:employee._id})">{{employee.firstName | camelCase}} {{employee.lastName | camelCase}} </a>
+            <span style="float: right" class="badge">{{employee.belong_to.name}}</span>
+            <span style="float: right" ng-show="employee.billable"><img src="images/billable.png" class="img-responsive img-circle white"></span>
         </div>
         <div class="panel-stage">
             <div class="row">
@@ -32,7 +34,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-xs-8 col-md-6">

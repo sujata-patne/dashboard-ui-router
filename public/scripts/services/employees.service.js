@@ -30,8 +30,9 @@ angular.module('dashboardApp')
       });
 
     }
-    service.deleteEmployee = function (employee, success) {
-      $http.delete(service.baseRestUrl+'/api/employees/' + employee._id, employee).success(function (result) {
+    service.deleteEmployee = function (employeeID, success) {
+        console.log(employeeID)
+      $http.delete(service.baseRestUrl+'/api/employees/' + employeeID).success(function (result) {
         success(result);
       });
     }

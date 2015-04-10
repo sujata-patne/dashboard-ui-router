@@ -8,7 +8,7 @@
  * Controller of the dashboardApp
  */
 angular.module('dashboardApp')
-  .controller('OrganizationseditCtrl',['$scope', '$state', '$stateParams','OrganizationsService', function ($scope, $state, $stateParams, OrganizationsService) {
+  .controller('OrganizationseditCtrl',['$scope', '$location', '$state', '$stateParams','OrganizationsService', function ($scope, $location, $state, $stateParams, OrganizationsService) {
     if($stateParams.id !== undefined){
       OrganizationsService.getOrganization($stateParams.id, function (organization) {
         $scope.organization = organization;
@@ -23,7 +23,11 @@ angular.module('dashboardApp')
         projects: []
       };
     }
-
+    if($location.url().indexOf("add") > -1) {
+        $scope.method = 'Add';
+    }else{
+        $scope.method = 'Edit';
+    }
     /*Add New Owner Field*/
     $scope.newOwner = { name: [], id:[] };
     $scope.addOwner = function() {

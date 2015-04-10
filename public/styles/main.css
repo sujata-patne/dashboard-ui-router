@@ -146,3 +146,8 @@ body {
 li{
   padding: 2px;
 }
+tags-input.ng-invalid .tags {
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+}

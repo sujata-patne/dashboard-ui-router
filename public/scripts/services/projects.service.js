@@ -28,8 +28,8 @@ angular.module('dashboardApp')
         success(items);
       });
     }
-    service.deleteProject = function (project, success) {
-      $http.delete(service.baseRestUrl+'/api/projects/' + project._id, project).success(function (result) {
+    service.deleteProject = function (projectID, success) {
+      $http.delete(service.baseRestUrl+'/api/projects/' + projectID).success(function (result) {
         success(result);
       });
     }

@@ -23,15 +23,15 @@ var OrganizationHistorySchema = new Schema({
     ],
     total_num_people:{
         type:Number,
-        required: true
+        required: false
     },
     billable_headcount:{
         type:Number,
-        required:true
+        required:false
     },
     bench_strength:{
         type:Number,
-        required:true
+        required:false
     },
     employees:[
         {

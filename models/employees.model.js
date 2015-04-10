@@ -61,11 +61,50 @@ var EmployeesSchema = new Schema({
 /**
  * Hook a pre save method to hash the password
  */
-
+/*
 EmployeesSchema.post('save', function (doc) {
+    var Organization = require('../controllers/organizations.controller.js');
+
+})
+*/
+EmployeesSchema.post('remove', function(next) {
+    var doc = this;
+    var Emp = require('../controllers/employees.controller.js');
+    var Org = require('../controllers/organizations.controller.js');
+    var Proj = require('../controllers/projects.controller.js');
+    var count, billable;
+    Emp.totalOrgHeadcount(doc.belong_to, function(items){
+        //console.log(items);
+        Org.modify(items);
+    });
+    doc.works_for.forEach(function(project){
+        Emp.totalProjHeadcount(project, function(items){
+            //console.log(items);
+            Proj.modify(items);
+        })
+    });
+});
+EmployeesSchema.post('save', function (doc) {
+
+    var Emp = require('../controllers/employees.controller.js');
+    var Org = require('../controllers/organizations.controller.js');
+    var Proj = require('../controllers/projects.controller.js');
+    var count, billable;
+    Emp.totalOrgHeadcount(doc.belong_to, function(items){
+        //console.log(items);
+        Org.modify(items);
+    });
+    doc.works_for.forEach(function(project){
+        Emp.totalProjHeadcount(project, function(items){
+            //console.log(items);
+            Proj.modify(items);
+        })
+    });
+
     var EmployeesHistory = require('../controllers/employees.history.controller.js');
     var employee = [];
     var items = [];
+
     if(doc._id != undefined){
         employee.ref=doc._id;
     }

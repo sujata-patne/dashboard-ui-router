@@ -8,10 +8,8 @@
  * Controller of the dashboardApp
  */
 angular.module('dashboardApp')
-  .controller('EmployeesviewCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+  .controller('EmployeesviewCtrl',['$scope', '$stateParams','EmployeesService', function ($scope, $stateParams, EmployeesService) {
+     EmployeesService.getEmployee($stateParams.id, function (employee) {
+        $scope.employee = employee;
+     });
+  }]);

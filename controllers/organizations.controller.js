@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
     autoIncrement = require('mongoose-auto-increment'),
     async = require('async');
 
+
 //get specified organization through function
 exports.organizationById=function(req,res,next,id){
     Organization.findOne({_id:id})
@@ -138,6 +139,30 @@ exports.read=function(req,res){
     res.send(req.organization);
 }
 
+exports.modify=function(data) {
+    Organization.findOne({_id:data.id})
+        .exec(function(err,organization) {
+            if(organization){
+                if(data.total != undefined){
+                    organization.total_num_people=data.total;
+                }
+                if(data.billable != undefined){
+                    organization.billable_headcount=data.billable;
+                }
+                if(data.bench != undefined){
+                    organization.bench_strength=data.bench;
+                }
+                //console.log(organization);
+                organization.save(function (err, organization) {
+                    if(err){
+                        console.log("Unable to save organization.");
+                    }
+                });
+            }else{
+                console.log("Organization not found");
+            }
+        });
+}
 exports.update=function(req,res){
     var organization = req.organization;
     var items = [];
@@ -188,3 +213,5 @@ exports.update=function(req,res){
         }
     });
 }
+
+

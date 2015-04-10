@@ -115,6 +115,7 @@ exports.delete=function(req,res){
             res.status(400).send(err.err);
         }
         else{
+            console.log("Project Deleted.");
             res.send(project);
         }
     })
@@ -145,6 +146,9 @@ exports.update=function(req,res){
     if(req.body.bench_strength != undefined){
         project.bench_strength=req.body.bench_strength;
     }
+    if(req.body.red_days != undefined){
+        project.red_days=req.body.red_days;
+    }
 
     project.save(function (err, project) {
         if(err){
@@ -158,3 +162,27 @@ exports.update=function(req,res){
 }
 
 
+exports.modify=function(data) {
+    Project.findOne({_id:data.id})
+        .exec(function(err,project) {
+            if(project){
+                if(data.total != undefined){
+                    project.total_num_people=data.total;
+                }
+                if(data.billable != undefined){
+                    project.billable_headcount=data.billable;
+                }
+                if(data.bench != undefined){
+                    project.bench_strength=data.bench;
+                }
+                //console.log(organization);
+                project.save(function (err, project) {
+                    if(err){
+                        console.log("Unable to save project.");
+                    }
+                });
+            }else{
+                console.log("Project not found");
+            }
+        });
+}

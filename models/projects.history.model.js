@@ -28,15 +28,15 @@ var ProjectsHistorySchema = new Schema({
     },
     total_num_people:{
         type:Number,
-        required: true
+        required: false
     },
     billable_headcount:{
         type:Number,
-        required:true
+        required:false
     },
     bench_strength:{
         type:Number,
-        required:true
+        required:false
     },
     employees:[
         {
@@ -44,6 +44,10 @@ var ProjectsHistorySchema = new Schema({
             ref:'Employee'
         }
     ],
+    red_days:{
+        type:Number,
+        default:0
+    },
     updated_by:{
         type: ObjectId,
         ref: 'Employee',

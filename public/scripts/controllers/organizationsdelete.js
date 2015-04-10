@@ -12,7 +12,7 @@ angular.module('dashboardApp')
     //Delete Organization
 
     OrganizationsService.deleteOrganization($stateParams.id, function(response){
-      $state.transitionTo('organizations.list');
+      $state.transitionTo('auth.organizations.list');
     });
 
   }]);

@@ -8,7 +8,7 @@
  * Controller of the dashboardApp
  */
 angular.module('dashboardApp')
-    .controller('EmployeeseditCtrl',['$scope', '$state', '$stateParams','EmployeesService', function ($scope, $state, $stateParams, EmployeesService) {
+    .controller('EmployeeseditCtrl',['$scope', '$location', '$state', '$stateParams','EmployeesService', function ($scope, $location, $state, $stateParams, EmployeesService) {
         $scope.genders = ['Male', 'Female'];
         $scope.roles = [
             'Junior Software Developer',
@@ -35,13 +35,23 @@ angular.module('dashboardApp')
                 year_exp:'',
                 role:'',
                 gender:'',
+                billable:'',
                 skills:'',
                 belong_to: '',
                 works_for: []
             };
+
+        }
+        if($location.url().indexOf("add") > -1) {
+            $scope.method = 'Add';
+            $scope.newProject = { name: [''], id:[''] };
+
+        }else{
+            $scope.method = 'Edit';
+            $scope.newProject = { name: [], id:[] };
         }
         /*Add New Project Field*/
-        $scope.newProject = { name: [], id:[] };
+
         $scope.addProject = function() {
             $scope.newProject.name.push('');
             $scope.newProject.id.push('');
@@ -62,14 +72,17 @@ angular.module('dashboardApp')
 
         $scope.updateProject=function(){
             var index = 0;
-            angular.forEach($scope.newProject.name, function(item){
-                var newProjectId = $scope.newProject.id[index];
-                $scope.employee.works_for.push(newProjectId);
-                index++;
-            })
+            if($scope.newProject.name != '') {
+                angular.forEach($scope.newProject.name, function (item) {
+                    var newProjectId = $scope.newProject.id[index];
+                    $scope.employee.works_for.push(newProjectId);
+                    index++;
+                })
+            }
         };
 
         $scope.autoCompleteProject = function(cssClass, index){
+            console.log(index)
             $( "."+cssClass ).autocomplete({
                 source: function (searchTerm,response){
                     EmployeesService.searchProject(searchTerm.term).success(function (autocompleteResults) {
@@ -82,7 +95,6 @@ angular.module('dashboardApp')
                     })
                 },
                 select: function ( event, selectedItem) {
-
                     $scope.newProject.name[index] = selectedItem.item.value.name;
                     $scope.newProject.id[index] = selectedItem.item.value._id;
                     $scope.$apply();

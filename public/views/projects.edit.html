@@ -12,90 +12,54 @@
         </div>
         <div class="panel-stage">
           <div class="row">
-            <div class="col-xs-6">
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="panel-wrapper">
-                    <div class="panel-title">Total Employees</div>
-                    <div class="panel-stage">
-                      <input type="text" ng-model="project.total_num_people" required="true">
-                    </div>
+            <div class="col-xs-12">
+              <div class="panel-wrapper">
+                <div class="panel-title">
+                  <div class="row">
+                    <div class="col-xs-8">Organizations</div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="panel-wrapper">
-                    <div class="panel-title">Total Billable Employees</div>
-                    <div class="panel-stage">
-                      <input type="text" ng-model="project.billable_headcount" required="true">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="panel-wrapper">
-                    <div class="panel-title">Bench Strength</div>
-                    <div class="panel-stage">
-                      <input type="text" ng-model="project.bench_strength" required="true">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-xs-6">
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="panel-wrapper">
-                    <div class="panel-title">
-                      <div class="row">
-                        <div class="col-xs-8">Owners</div>
-                        <div class="col-xs-4">
-                          <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="addOwner()" title="Add Owners">+</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel-stage">
-                        <div class="row" >
-                            <div class="col-xs-12" ng-repeat="owner in project.owners track by $index">
-                                <input type="text" ng-model="owner.firstName" required="true" ng-readonly="true" >
-                                <input type="hidden" ng-model="owner._id" required="true" >
-                                <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteOwner(owner._id)">X</a>
-                            </div>
-                           <div class="col-xs-12" ng-repeat="new in newOwner.name track by $index" >
-                              <input type="text" ng-model="newOwner.name[$index]" required="true" class="ownerClass" ng-keyup="autoCompleteOwner('ownerClass',$index)"  >
-                              <input type="hidden" ng-model="newOwner.id[$index]" required="true" >
-                              <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteOwnerField($index)">X</a>
-                           </div>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-xs-12">
-                  <div class="panel-wrapper">
-                    <div class="panel-title">
-                      <div class="row">
-                        <div class="col-xs-8">Organizations</div>
-                      </div>
-                    </div>
-                    <div class="panel-stage">
-                      <div class="row">
-                        <div class="col-xs-12">
-                            <input type="hidden" ng-model="project.belong_to._id" required="true" >
-                            <input type="text" ng-model="project.belong_to.name" required="true" class="organizationClass" ng-keyup="autoCompleteOrganization('organizationClass')">
-                            <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteOrganization(project._id)">X</a>
-                        </div>
-                      </div>
+                <div class="panel-stage">
+                  <div class="row">
+                    <div class="col-xs-12">
+                        <input type="hidden" ng-model="project.belong_to._id" required="true" >
+                        <input type="text" ng-model="project.belong_to.name" required="true" class="organizationClass" ng-keyup="autoCompleteOrganization('organizationClass')">
+                        <!--<a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteOrganization(project._id)">X</a>-->
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" ng-show="method=='Edit'">
+                <div class="col-xs-12">
+                    <div class="panel-wrapper">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-xs-8">Owners</div>
+                                <div class="col-xs-4">
+                                    <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="addOwner()" title="Add Owners">+</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-stage">
+                            <div class="row" >
+                                <div class="col-xs-12" ng-repeat="owner in project.owners track by $index">
+                                    <input type="text" ng-model="owner.firstName" required="true" ng-readonly="true" >
+                                    <input type="hidden" ng-model="owner._id" required="true" >
+                                    <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteOwner(owner._id)">X</a>
+                                </div>
+                                <div class="col-xs-12" ng-repeat="new in newOwner.name track by $index" >
+                                    <input type="text" ng-model="newOwner.name[$index]" required="true" class="ownerClass" ng-keyup="autoCompleteOwner('ownerClass',$index)"  >
+                                    <input type="hidden" ng-model="newOwner.id[$index]" required="true" >
+                                    <a href="javascript:void(0)" class="btn btn-danger btn-xs" ng-click="deleteOwnerField($index)">X</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
             <div class="col-xs-12">
               <div class="panel-wrapper">
                 <div class="panel-stage">

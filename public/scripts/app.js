@@ -26,11 +26,12 @@ angular
     'ngTagsInput'
   ])
     .filter('camelCase', function() {
-        return function(input, scope) {
-            if (input!=null)
-                input = input.toLowerCase();
-            return input.substring(0,1).toUpperCase()+input.substring(1);
-        }
+        return function(s) {
+            s = ( s === undefined || s === null ) ? '' : s;
+            return s.toString().toLowerCase().replace( /\b([a-z])/g, function(ch) {
+                return ch.toUpperCase();
+            });
+        };
     })
 .config(function($stateProvider, authProvider, jwtInterceptorProvider,$httpProvider){
     authProvider.init({

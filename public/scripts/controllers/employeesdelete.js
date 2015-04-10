@@ -8,10 +8,9 @@
  * Controller of the dashboardApp
  */
 angular.module('dashboardApp')
-  .controller('EmployeesdeleteCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('EmployeesdeleteCtrl', ['$scope', '$state', '$stateParams', 'EmployeesService', function ($scope, $state, $stateParams, EmployeesService) {
+
+        EmployeesService.deleteEmployee($stateParams.id, function(response){
+            $state.transitionTo('auth.employees.list');
+        });
+    }]);

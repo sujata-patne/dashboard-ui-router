@@ -20,11 +20,11 @@ var OrganizationsSchema = new Schema({
     ],
     total_num_people:{
         type:Number,
-        required: true
+        required: false
     },
     billable_headcount:{
         type:Number,
-        required:true
+        required:false
     },
     employees:[
         {
@@ -40,7 +40,7 @@ var OrganizationsSchema = new Schema({
     ],
     bench_strength:{
         type:Number,
-        required:true
+        required:false
     },
     updated_by:{
         type: ObjectId,
@@ -52,7 +52,6 @@ var OrganizationsSchema = new Schema({
 /**
  * Hook a pre save method to hash the password
  */
-
 OrganizationsSchema.post('save', function (doc) {
     var OrganizationHistory = require('../controllers/organizations.history.controller.js');
     var organization = [];

@@ -8,10 +8,9 @@
  * Controller of the dashboardApp
  */
 angular.module('dashboardApp')
-  .controller('ProjectsdeleteCtrl', function ($scope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-  });
+    .controller('ProjectsdeleteCtrl', ['$scope', '$state', '$stateParams', 'ProjectsService', function ($scope, $state, $stateParams, ProjectsService) {
+
+        ProjectsService.deleteProject($stateParams.id, function(response){
+            $state.transitionTo('auth.projects.list');
+        });
+  }]);

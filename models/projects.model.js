@@ -26,11 +26,11 @@ var ProjectsSchema = new Schema({
     },
     total_num_people:{
         type:Number,
-        required: true
+        required: false
     },
     billable_headcount:{
         type:Number,
-        required:true
+        required:false
     },
     employees:[
         {
@@ -40,7 +40,11 @@ var ProjectsSchema = new Schema({
     ],
     bench_strength:{
         type:Number,
-        required:true
+        required:false
+    },
+    red_days:{
+        type:Number,
+        default:0
     },
     updated_by:{
         type: ObjectId,
@@ -98,6 +102,9 @@ ProjectsSchema.post('save', function (doc) {
     }
     if(doc.bench_strength != undefined){
         project.bench_strength=doc.bench_strength;
+    }
+    if(doc.red_days != undefined){
+        project.red_days=doc.red_days;
     }
 
     ProjectsHistory.createProjectHistory(project);

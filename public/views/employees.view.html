@@ -1,1 +1,62 @@
-<p>This is the employees.view view.</p>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="panel-wrapper">
+            <div class="panel-title">
+                <div class="row">
+                    <div class="col-xs-8 col-md-8"><h4>{{employee.firstName | camelCase}} {{employee.lastName | camelCase}}</h4></div>
+                    <div class="col-xs-2 col-md-2">
+                        <a ui-sref="auth.employees.edit({id:employee._id})"><span class="glyphicon glyphicon-edit"></span>Edit</a>
+                    </div>
+                    <div class="col-xs-2 col-md-2">
+                        <a ui-sref="auth.employees.delete({id:employee._id})">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Delete
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-stage">
+                <div class="row">
+                    <div class="col-xs-8 col-md-6">
+                        <div class="panel-wrapper">
+                            <div class="panel-title">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">
+                                        <span class="badge">{{employee.role}}</span> with
+                                        <span class="badge">{{employee.year_exp}}+ years</span>
+                                        <span ng-show="employee.billable" class="badge">Billable</span></div>
+                                </div>
+                            </div>
+                            <div class="panel-stage grey">
+                                <div ng-switch on="employee.gender">
+                                    <div ng-switch-when="Female">
+                                        <img src="images/profile-female.png" class="img-responsive img-circle white">
+                                    </div>
+                                    <div ng-switch-when="Male">
+                                        <img src="images/profile-male.png" class="img-responsive img-circle white">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-8 col-md-6">
+                        <div class="panel-wrapper">
+                            <div class="panel-stage">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">Skills:
+                                        <ul><li ng-repeat="skill in employee.skills" class="badge">{{skill.name}}</li></ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">Works in:
+                                        <ul><li class="badge" ng-repeat="project in employee.works_for">{{project.name}}</li></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
