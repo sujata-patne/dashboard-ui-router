@@ -24,7 +24,7 @@
                                     <div class="col-xs-12 col-md-12">
                                         <span class="badge">{{employee.role}}</span> with
                                         <span class="badge">{{employee.year_exp}}+ years</span>
-                                        <span ng-show="employee.billable" class="badge">Billable</span></div>
+                                        <span style="float: right" ng-show="employee.billable" class="badge">Billable</span></div>
                                 </div>
                             </div>
                             <div class="panel-stage grey">
@@ -42,6 +42,11 @@
                     <div class="col-xs-8 col-md-6">
                         <div class="panel-wrapper">
                             <div class="panel-stage">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-12">BelongsTo:
+                                        <ul><li class="badge">{{employee.belong_to.name}}</li></ul>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-12">Skills:
                                         <ul><li ng-repeat="skill in employee.skills" class="badge">{{skill.name}}</li></ul>

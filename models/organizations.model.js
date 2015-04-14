@@ -56,58 +56,15 @@ OrganizationsSchema.post('save', function (doc) {
     var OrganizationHistory = require('../controllers/organizations.history.controller.js');
     var organization = [];
     var items = [];
-    if(doc._id != undefined){
-        organization.ref=doc._id;
-    }
-
-    if(doc.name != undefined){
-        organization.name=doc.name;
-    }
-    if(doc.owners != undefined) {
-        organization.owners = [];
-        var owners = doc.owners;
-        owners.forEach(function (ownerData, index) {
-            items.push({type: "owner", value: ownerData});
-        })
-    }
-    if(doc.employees != undefined) {
-        organization.employees = [];
-        var employees = doc.employees;
-        employees.forEach(function (employeeData, index) {
-            items.push({type: "employee", value: employeeData});
-        })
-    }
-    if(doc.projects != undefined) {
-        organization.projects = [];
-        var projects = doc.projects;
-        projects.forEach(function (projectData, index) {
-            items.push({type: "project", value: projectData});
-        })
-    }
-
-    items.forEach(function (item) {
-        if (item.type === 'owner') {
-            organization.owners.push(item.value);
-        }
-        if (item.type === 'project') {
-            organization.projects.push(item.value);
-        }
-        if (item.type === 'employee') {
-            organization.employees.push(item.value);
-        }
-    });
-
-    if(doc.total_num_people != undefined){
-        organization.total_num_people=doc.total_num_people;
-    }
-    if(doc.billable_headcount != undefined){
-        organization.billable_headcount=doc.billable_headcount;
-    }
-    if(doc.bench_strength != undefined){
-        organization.bench_strength=doc.bench_strength;
-    }
-
-    //Organization.countEmpByOrgID(doc._id);
+    organization.ref=doc._id;
+    organization.name=doc.name;
+    organization.owners = doc.owners;
+    organization.employees = doc.employees;
+    organization.projects = doc.projects;
+    organization.total_num_people = doc.total_num_people;
+    organization.billable_headcount = doc.billable_headcount;
+    organization.bench_strength = doc.bench_strength;
+    organization.updated_by =doc.updated_by;
     OrganizationHistory.createOrganizationHistory(organization);
 })
 

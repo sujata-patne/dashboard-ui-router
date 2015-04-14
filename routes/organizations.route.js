@@ -2,8 +2,12 @@
  * Created by sujatah on 2/5/2015.
  */
 var organizations = require('../controllers/organizations.controller');
+var organizationsHistory = require('../controllers/organizations.history.controller');
 
 module.exports = function(app){
+    app.route('/api/organizationsHistory')
+        .get(organizationsHistory.getOrganizationsHistory);
+
     app.route('/api/organizations')
         .get(organizations.list)
         .post(organizations.create);

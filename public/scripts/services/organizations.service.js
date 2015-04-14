@@ -7,6 +7,13 @@ angular.module('dashboardApp')
     service.baseRestUrl = 'http://localhost:8888';
     /*service.baseRestUrl = 'https://boiling-dusk-5811.herokuapp.com';*/
 
+    service.getOrganizationsHistory = function(success){
+      $http.get(service.baseRestUrl+'/api/organizationsHistory/').success(function (items) {
+          console.log(items)
+        success(items);
+      });
+    }
+
     service.getOrganizationsList = function(success){
       $http.get(service.baseRestUrl+'/api/organizations/').success(function (items) {
         success(items);

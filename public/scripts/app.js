@@ -23,7 +23,8 @@ angular
     'auth0',
     'angular-storage',
     'angular-jwt',
-    'ngTagsInput'
+    'ngTagsInput',
+    'chart.js'
   ])
     .filter('camelCase', function() {
         return function(s) {

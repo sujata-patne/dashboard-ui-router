@@ -127,6 +127,7 @@ exports.update=function(req,res){
         project.name=req.body.name;
     }
     if(req.body.belong_to != undefined){
+        console.log(req.body.belong_to)
         project.belong_to=req.body.belong_to._id;
     }
     if(req.body.owners != undefined) {
@@ -160,7 +161,6 @@ exports.update=function(req,res){
         }
     });
 }
-
 
 exports.modify=function(data) {
     Project.findOne({_id:data.id})

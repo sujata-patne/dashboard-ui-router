@@ -7,7 +7,6 @@ var mongoose = require('mongoose'),
     Organization = mongoose.model('Organization'),
     Project = mongoose.model('Project'),
     Employee = mongoose.model('Employee'),
-    autoIncrement = require('mongoose-auto-increment'),
     async = require('async');
 
 //get specified employee through function
@@ -42,11 +41,51 @@ exports.list=function(req,res,next){
             res.send(employees);
         })
 }
+exports.totalOrgHeadcount = function(orgID, callback){
+    var items = {};
+    Employee.count({belong_to:orgID})
+        .exec(function(err,total){
+            Employee.count({belong_to:orgID,billable:true})
+                .exec(function(err,billable){
+                    items = {'id':orgID, 'total':total, 'billable':billable, 'bench':parseInt(total)-parseInt(billable)};
+                    callback(items);
+                })
+        })
+}
+
+exports.totalProjHeadcount = function(projectID, callback){
+    var items = {};
+    Employee.count({works_for:projectID})
+        .exec(function(err,total){
+            Employee.count({works_for:projectID,billable:true})
+                .exec(function(err,billable){
+                    items ={'id':projectID, 'total':total, 'billable':billable, 'bench':parseInt(total)-parseInt(billable)};
+                    callback(items);
+                })
+        })
+}
+
+exports.getProjectsByOrganization = function(orgID, callback){
+    Project.findById(orgID,function(err,projects){
+        console.log(projects)
+            callback(projects);
+        })
+}
 
 //add new employee
 exports.create=function(req,res){
-    if(req.body.belong_to != undefined){
+    if (req.body.belong_to != undefined) {
         req.body.belong_to=req.body.belong_to._id;
+       /*async.parallel(function(callback) {
+            Organization.findById(req.body.belong_to)
+                .exec(function (err, projects) {
+                    if(err){
+                        console.log(err);
+                    }else{
+                        console.log(projects);
+                    }
+            })
+        });*/
     }
     var employeeData = new Employee(req.body);
     employeeData.save(function(err){
@@ -57,6 +96,7 @@ exports.create=function(req,res){
             res.send(employeeData);
         }
     })
+
 }
 
 //retrive specified employee
@@ -118,7 +158,6 @@ exports.update=function(req,res) {
         employee.billable = req.body.billable;
     }
 
-
     employee.save(function (err, employee) {
         if (err) {
             console.log("Unable to save employee.");
@@ -128,6 +167,8 @@ exports.update=function(req,res) {
             res.send(employee);
         }
     });
+
+
 }
 
 //get specified projects through function
@@ -176,26 +217,3 @@ exports.update=function(req,res) {
         res.send(req.belong_to);
     }
 
-exports.totalOrgHeadcount = function(orgID, callback){
-    var items = {};
-    Employee.count({belong_to:orgID})
-        .exec(function(err,total){
-            Employee.count({belong_to:orgID,billable:true})
-                .exec(function(err,billable){
-                    items = {'id':orgID, 'total':total, 'billable':billable, 'bench':parseInt(total)-parseInt(billable)};
-                    callback(items);
-            })
-    })
-}
-
-exports.totalProjHeadcount = function(project, callback){
-    var items = {};
-    Employee.count({works_for:project._id})
-        .exec(function(err,total){
-            Employee.count({works_for:project._id,billable:true})
-                .exec(function(err,billable){
-                    items ={'id':project._id, 'total':total, 'billable':billable, 'bench':parseInt(total)-parseInt(billable)};
-                    callback(items);
-                })
-        })
-}

@@ -19,3 +19,13 @@ exports.createOrganizationHistory = function(data){
         }
     })
 }
+
+exports.getOrganizationsHistory = function(req,res){
+
+
+                OrganizationHistory.find({}, {}, { sort: { 'version_date' : -1 } })
+                    .exec(function(err, oh) {
+                            res.send(oh);
+                    });
+
+}
