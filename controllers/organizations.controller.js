@@ -109,7 +109,7 @@ exports.list=function(req,res,next){
 }
 
 //add new organization
-exports.create=function(req,res){
+exports.create = function(req,res){
     var organizationData = new Organization(req.body);
     organizationData.save(function(err){
         if (err) {

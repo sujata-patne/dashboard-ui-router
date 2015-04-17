@@ -12,41 +12,45 @@
 </div>
 <div class="row"><div class="col-md-12">&nbsp;</div></div>
 <div class="row">
-  <div ng-repeat="item in projectList | filter:searchText" class="col-md-4">
+  <div ng-repeat="item in projectList track by $index | filter:searchText" class="col-md-4">
     <div class="panel-wrapper">
       <div class="panel-title">
-          <a ui-sref="auth.projects.view({id:item._id})">{{item.name}} </a>
+          <a ui-sref="auth.projects.view({id:item._id})">{{item.name}} </a>:
+          <div class="badge">{{item.total_num_people}}</div> Open Positions
       </div>
       <div class="panel-stage">
         <div class="row">
+            <div class="col-xs-6">
+                <div class="panel-wrapper">
+                    <div class="panel-title">
+                        Red Days
+                    </div>
+                    <div ng-class="{red:item.red_days} panel-stage">
+                        <div class="red-days">{{item.red_days}}</div>
+                    </div>
+                </div>
+            </div>
           <div class="col-xs-6">
             <div class="panel-wrapper">
-              <div class="panel-title">Owners</div>
-              <div class="panel-stage">{{getObjectDataStr(item.owners)}}</div>
-            </div>
-          </div>
-          <div class="col-xs-6">
-            <div class="panel-wrapper">
-              <div class="panel-title">Organization</div>
-              <div class="panel-stage">{{item.belong_to.name}}</div>
-            </div>
+                <div class="panel-title">Billable Vs Bench</div>
+                <div class="panel-stage">
+                    <canvas id="doughnut" class="chart chart-doughnut" data="chartData[$index]" labels="labels" legend="false"></canvas>
+                </div>
+              </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-6">
-            <div class="panel-wrapper">
-              <div class="panel-title">Total No. of People</div>
-              <div class="panel-stage">{{item.total_num_people}}</div>
+            <div class="col-md-12">
+                <div class="panel-wrapper">
+                    <div class="panel-title">Owners</div>
+                    <div class="panel-stage">{{getObjectDataStr(item.owners)}}</div>
+                </div>
             </div>
-          </div>
-          <div class="col-xs-6">
-            <div class="panel-wrapper">
-              <div class="panel-title">Billable Headcount</div>
-              <div class="panel-stage">{{item.billable_headcount}}</div>
-            </div>
-          </div>
         </div>
       </div>
+        <div class="panel-notes">
+            Owned by {{item.belong_to.name}}
+        </div>
     </div>
   </div>
 </div>

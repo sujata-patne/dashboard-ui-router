@@ -5,8 +5,8 @@ var organizations = require('../controllers/organizations.controller');
 var organizationsHistory = require('../controllers/organizations.history.controller');
 
 module.exports = function(app){
-    app.route('/api/organizationsHistory')
-        .get(organizationsHistory.getOrganizationsHistory);
+    app.route('/api/organizationHistory/:orgHistoryID')
+        .get(organizationsHistory.read);
 
     app.route('/api/organizations')
         .get(organizations.list)
@@ -27,6 +27,7 @@ module.exports = function(app){
         .get(organizations.getProjects);
 
     app.param('organizationID',organizations.organizationById);
+    app.param('orgHistoryID',organizationsHistory.getOrganizationsHistory);
     app.param('owner',organizations.ownersByName);
     app.param('project',organizations.projectsByName);
 

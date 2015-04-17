@@ -7,15 +7,14 @@ angular.module('dashboardApp')
     service.baseRestUrl = 'http://localhost:8888';
     /*service.baseRestUrl = 'https://boiling-dusk-5811.herokuapp.com';*/
 
-    service.getOrganizationsHistory = function(success){
-      $http.get(service.baseRestUrl+'/api/organizationsHistory/').success(function (items) {
-          console.log(items)
-        success(items);
-      });
+    service.getOrganizationsList = function(success){
+        $http.get(service.baseRestUrl+'/api/organizations/').success(function (items) {
+            success(items);
+        });
     }
 
-    service.getOrganizationsList = function(success){
-      $http.get(service.baseRestUrl+'/api/organizations/').success(function (items) {
+    service.getOrganizationsHistory = function(id,success){
+      $http.get(service.baseRestUrl+'/api/organizationHistory/'+id).success(function (items) {
         success(items);
       });
     }
@@ -54,7 +53,7 @@ angular.module('dashboardApp')
       objectDataList = objectDataList.substr(0, pos);
       return objectDataList;
     }
-
+/*
     service.chartData = {
       "labels":["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
       "series":['Series A', 'Series B','Series C', 'Series D'],
@@ -64,7 +63,10 @@ angular.module('dashboardApp')
         [45, 59, 45, 31, 65, 48,65, 59, 25, 81, 56, 55],
         [58, 48, 55, 92, 25, 35,28, 48, 35, 19, 35, 27]
       ]
-    }
+    }*/
+        service.chartData = {"labels":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+            "series":["Total","Billable"],
+            "data":[[4,2],[3,2]]};
 
     service.searchOwners = function (term) {
       return $http.get(service.baseRestUrl+'/api/organizations/owners/' + term)

@@ -19,13 +19,26 @@ exports.createOrganizationHistory = function(data){
         }
     })
 }
+//retrive specified organization
+exports.read=function(req,res){
+    res.send(req.organization);
+}
 
-exports.getOrganizationsHistory = function(req,res){
+exports.getOrganizationsHistory = function(req,res,next,orgID){
+    OrganizationHistory.find({ref:orgID})
+        .sort({version_date: 1})
+        .exec(function(err, organization) {
+            if(err){
+                next();
+            }
+            if(organization){
+                req.organization=organization;
+                // console.log("Organization found " + organization);
+                next();
+            }else{err
+                console.log("Organization not found");
+                res.status(400).send("Organization not found");
 
-
-                OrganizationHistory.find({}, {}, { sort: { 'version_date' : -1 } })
-                    .exec(function(err, oh) {
-                            res.send(oh);
-                    });
-
+            }
+        });
 }
