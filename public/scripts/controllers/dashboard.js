@@ -8,23 +8,56 @@
  * Controller of the dashboardApp
  */
 angular.module('dashboardApp')
-  .controller('DashboardCtrl', ['$scope', '$stateParams','ProjectsService', function ($scope, $stateParams, ProjectsService) {
+  .controller('DashboardCtrl', ['$scope', '$stateParams','ProjectsService', 'OrganizationsService', function ($scope, $stateParams, ProjectsService,OrganizationsService) {
             //$scope.chartData = ProjectsService.chartData;
-            $scope.chartData = [];
-            $scope.total = 0;
-            $scope.chartLabels = [];
-            ProjectsService.getProjectList(function (projects) {
-                projects.forEach(function(project){
-                    $scope.chartLabels.push(project.name);
-                    $scope.total = parseInt(project.total_num_people + $scope.total);
-                    var billable = parseInt((project.billable_headcount/$scope.total) * 360);
-                    $scope.chartData.push(billable);
-                })
-                console.log($scope.chartData)
-                console.log($scope.chartLabels)
+        $scope.p_chartData = [];
+        $scope.p_chartLabels = [];
+        ProjectsService.getProjectList(function (projects) {
+            $scope.p_total = 0;
+            projects.forEach(function(project){
+                $scope.p_chartLabels.push(project.name);
+                /*$scope.p_total = parseInt(project.total_num_people + $scope.p_total);
+                var billable = parseInt((project.billable_headcount/$scope.p_total) * 360);*/
+                $scope.p_chartData.push(project.billable_headcount);
+            })
+        });
+
+
+        $scope.o_chartData = {
+            "labels": [],
+            "series": ['Billable', 'Bench'],
+            "data":[]
+        }
+        //$scope.o_chartLabels =[];
+        //$scope.o_chartseries = ['Billable', 'Bench'];
+        OrganizationsService.getOrganizationsList(function (organizations) {
+            var curDate = new Date();
+            $scope.bench = [];
+            $scope.billable = [];
+            organizations.forEach(function(org){
+                $scope.o_chartData.labels.push(org.name);
+                $scope.bench.push(parseInt(org.total_num_people - org.billable_headcount));
+                $scope.billable.push(org.billable_headcount);
+                OrganizationsService.getOrganizationsHistory(org._id, function (data) {
+                    data.forEach(function(organization) {
+                        var date = new Date(organization.version_date);
+                        if (date.getYear() == curDate.getYear() && date.getMonth() == curDate.getMonth()) {
+                            var index = $scope.o_chartData.labels.indexOf(organization.name);
+                            if($scope.o_chartData.labels.length > 0) {
+                                if (index) {
+                                    $scope.bench.splice(index, 1, parseInt(organization.total_num_people - organization.billable_headcount));
+                                    $scope.billable.splice(index, 1, organization.billable_headcount);
+                                } else {
+                                     $scope.bench[index] = parseInt(organization.total_num_people - organization.billable_headcount);
+                                     $scope.billable[index] = organization.billable_headcount;
+                                }
+                            }
+                        }
+                    });
+                });
             });
-
-
+            $scope.o_chartData.data.push($scope.billable,$scope.bench);
+        });
 
 
     $scope.labels = ["8.00 AM", "12.00 PM", "4.00 PM", "8.00 PM", "12.00 AM", "4.00 AM"];
