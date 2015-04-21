@@ -9,9 +9,11 @@
  */
 angular.module('dashboardApp')
   .controller('ProjectsviewCtrl', ['$scope', '$stateParams','ProjectsService', function ($scope, $stateParams, ProjectsService) {
-      $scope.chartData = ProjectsService.chartData;
+     $scope.chartData = [];
+     $scope.labels = ['Billable', 'Bench'];
       ProjectsService.getProject($stateParams.id, function (project) {
         $scope.project = project;
+          $scope.chartData = [project.billable_headcount, parseInt(project.total_num_people - project.bench_strength)];
       });
 
       $scope.getObjectDataStr = function(objects){

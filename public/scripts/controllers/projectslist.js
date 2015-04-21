@@ -9,7 +9,6 @@
  */
 angular.module('dashboardApp')
   .controller('ProjectslistCtrl', ['$scope', '$stateParams','ProjectsService', function ($scope, $stateParams, ProjectsService) {
-
       //$scope.chartData = ProjectsService.chartData;
       $scope.chartData = [];
       $scope.labels = ['Billable', 'Bench'];

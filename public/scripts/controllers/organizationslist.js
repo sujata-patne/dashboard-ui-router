@@ -13,7 +13,7 @@ angular.module('dashboardApp')
     $scope.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
     $scope.chartData = {
         "labels": $scope.months,
-        "series": ['Total', 'Billable'],
+        "series": ['Billable', 'Bench'],
         "data":[]
     }
     $scope.chartData1 = OrganizationsService.chartData;
@@ -26,20 +26,18 @@ angular.module('dashboardApp')
                 $scope.bench = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                 $scope.billable = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                 data.forEach(function(organization) {
-                        var date = new Date(organization.version_date);
-                        $scope.months.forEach(function (i, m) {
-                            if (date.getMonth() == m) {
-                                $scope.bench[m] = parseInt(organization.total_num_people - organization.billable_headcount);
-                                $scope.billable[m] = organization.billable_headcount;
-                            }
-                        })
-
+                    var date = new Date(organization.version_date);
+                    $scope.months.forEach(function (i, m) {
+                        if (date.getMonth() == m) {
+                            $scope.billable[m] = organization.billable_headcount;
+                            $scope.bench[m] = parseInt(organization.total_num_people - organization.billable_headcount);
+                        }
+                    })
                 });
-                $scope.chartData.data.push([$scope.bench, $scope.billable]);
+                $scope.chartData.data.push([$scope.billable,$scope.bench]);
+                console.log($scope.chartData.data)
             });
-
         })
-
     });
 
     $scope.getObjectDataStr = function(objects){

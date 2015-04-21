@@ -12,7 +12,7 @@
 </div>
 <div class="row"><div class="col-md-12">&nbsp;</div></div>
 <div class="row">
-  <div ng-repeat="item in organizationsList track by $index | filter:searchText" class="col-md-4">
+  <div ng-repeat="item in organizationsList track by $index | filter:searchText" class="col-md-3">
     <div class="panel-wrapper">
       <div class="panel-title">
         <a ui-sref="auth.organizations.view({id:item._id})"   >{{item.name}}</a>
@@ -23,7 +23,7 @@
             <div class="panel-wrapper">
               <div class="panel-title">Billable Vs Bench</div>
               <div class="panel-stage">
-                <canvas id="tables" class="chart chart-line" data="chartData.data[$index]" labels="chartData.labels"  legend="false"></canvas>
+                <canvas id="tables" class="chart chart-line" data="chartData.data[$index]" labels="chartData.labels"  legend="true" series="chartData.series"></canvas>
               </div>
             </div>
           </div>

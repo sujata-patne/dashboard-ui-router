@@ -8,7 +8,24 @@
  * Controller of the dashboardApp
  */
 angular.module('dashboardApp')
-  .controller('DashboardCtrl', ['$scope', function ($scope) {
+  .controller('DashboardCtrl', ['$scope', '$stateParams','ProjectsService', function ($scope, $stateParams, ProjectsService) {
+            //$scope.chartData = ProjectsService.chartData;
+            $scope.chartData = [];
+            $scope.total = 0;
+            $scope.chartLabels = [];
+            ProjectsService.getProjectList(function (projects) {
+                projects.forEach(function(project){
+                    $scope.chartLabels.push(project.name);
+                    $scope.total = parseInt(project.total_num_people + $scope.total);
+                    var billable = parseInt((project.billable_headcount/$scope.total) * 360);
+                    $scope.chartData.push(billable);
+                })
+                console.log($scope.chartData)
+                console.log($scope.chartLabels)
+            });
+
+
+
 
     $scope.labels = ["8.00 AM", "12.00 PM", "4.00 PM", "8.00 PM", "12.00 AM", "4.00 AM"];
     $scope.series = ['Series A', 'Series B','Series C', 'Series D'];
